@@ -1,0 +1,37 @@
+.wrapper {
+  height: 100vh;
+  background: black;
+
+  .navbar {
+    background: #1d1d71;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-right: 40px;
+    }
+
+    a {
+      padding: 10px;
+      background: #24248d;
+      border-radius: 5px;
+      cursor: Pointer;
+      text-decoration: none;
+      color: white;
+
+      &:hover, &.active {
+        background: #2a2a9d;
+      }
+    }
+  }
+
+  .content {
+    flex-grow: 1;
+    padding: 10px;
+  }
+}

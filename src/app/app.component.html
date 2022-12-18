@@ -1,0 +1,14 @@
+<div class="wrapper">
+
+  <div class="navbar">
+    <span class="title">{{title.getTitle()}}</span>
+    <a routerLink="/" routerLinkActive="active">Overview</a>
+
+    <div style="flex-grow:1;display:flex;justify-content:flex-end">
+      <span style="color:#b9b9b9;font-size:12px">{{courseService.workspace}}</span>
+    </div>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
