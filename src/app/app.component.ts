@@ -32,5 +32,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.courseService.setup();
+    this.courseService.updateProjects();
   }
 }

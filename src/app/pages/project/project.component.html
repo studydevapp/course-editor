@@ -1,0 +1,18 @@
+<div fxLayout="column" *ngIf="$project | async as project">
+
+  <div style="display:flex;gap:10px">
+
+    <div>
+      <button mat-flat-button color="primary" (click)="openSettings(project)">Settings</button>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Language</mat-label>
+      <mat-select>
+        <mat-option [value]="'de'">German</mat-option>
+        <mat-option [value]="'en'">English</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>

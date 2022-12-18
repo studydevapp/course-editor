@@ -2,4 +2,19 @@
   <div style="display:flex">
     <button mat-flat-button color="primary" (click)="courseService.createNewCourse()">New course</button>
   </div>
+
+  <div>
+    <table>
+      <tr>
+        <th>Slug</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let project of courseService.$projects | async">
+        <td>{{project.metadata.slug}}</td>
+        <td>
+          <button mat-flat-button color="primary" routerLink="/project/{{project.metadata.slug}}">Edit</button>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

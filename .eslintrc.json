@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": [
-    "app/**/*", // ignore nodeJs files
+    "app/**/*",
+    // ignore nodeJs files
     "dist/**/*",
     "release/**/*"
   ],
@@ -26,8 +27,10 @@
       ],
       "rules": {
         "prefer-arrow/prefer-arrow-functions": 0,
-        "@angular-eslint/directive-selector":  0,
+        "@angular-eslint/directive-selector": 0,
         "@typescript-eslint/naming-convention": 0,
+        "@typescript-eslint/no-empty-function": 0,
+        "max-len": "off",
         "@angular-eslint/component-selector": [
           "error",
           {

@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {StudyDevService} from '../../services/study-dev.service';
-import {CourseMetadataDto} from '../../dto/CourseMetadata.dto';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ProjectDto} from '../../dto/Project.dto';
 
 @Component({
   selector: 'app-course-settings',
@@ -10,15 +10,17 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class CourseSettingsComponent implements OnInit {
 
+  hideKey = true;
+
   $topics = this.sdService.getTopics();
 
-  metadata = {} as CourseMetadataDto;
+  project = {metadata: {}} as ProjectDto;
 
   constructor(private sdService: StudyDevService,
-              @Inject(MAT_DIALOG_DATA) public data: { course_metadata: CourseMetadataDto },
+              @Inject(MAT_DIALOG_DATA) public data: { project: ProjectDto },
               private dialogRef: MatDialogRef<CourseSettingsComponent>) {
-    if (this.data?.course_metadata) {
-      this.metadata = this.data.course_metadata;
+    if (this.data?.project) {
+      this.project = this.data.project;
     }
   }
 
@@ -26,6 +28,6 @@ export class CourseSettingsComponent implements OnInit {
   }
 
   save() {
-    this.dialogRef.close(this.metadata);
+    this.dialogRef.close(this.project);
   }
 }

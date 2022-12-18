@@ -2,25 +2,26 @@
 
   <mat-form-field fxFlex="100">
     <mat-label>Key</mat-label>
-    <input matInput>
+    <input matInput [(ngModel)]="project.key" [type]="hideKey ? 'password' : 'text'">
+    <mat-icon matSuffix (click)="hideKey = !hideKey">{{hideKey ? 'visibility_off' : 'visibility'}}</mat-icon>
   </mat-form-field>
 
   <mat-form-field fxFlex="50">
     <mat-label>Slug</mat-label>
-    <input matInput [(ngModel)]="metadata.slug">
-    <mat-hint *ngIf="metadata.slug">https://study.dev/courses/{{metadata.slug}}</mat-hint>
+    <input matInput [(ngModel)]="project.metadata.slug">
+    <mat-hint *ngIf="project.metadata.slug">https://study.dev/courses/{{project?.metadata.slug}}</mat-hint>
   </mat-form-field>
 
   <mat-form-field fxFlex="50">
     <mat-label>Topic</mat-label>
-    <mat-select [(ngModel)]="metadata.topic">
+    <mat-select [(ngModel)]="project.metadata.topic">
       <mat-option *ngFor="let topic of $topics | async" [value]="topic.internal_name">{{topic.title}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field fxFlex="50">
     <mat-label>Difficulty</mat-label>
-    <mat-select [(ngModel)]="metadata.difficulty">
+    <mat-select [(ngModel)]="project.metadata.difficulty">
       <mat-option [value]="0">Easy</mat-option>
       <mat-option [value]="1">Medium</mat-option>
       <mat-option [value]="2">Hard</mat-option>
@@ -29,17 +30,17 @@
 
   <mat-form-field fxFlex="50">
     <mat-label>Reward</mat-label>
-    <input matInput [(ngModel)]="metadata.reward">
+    <input matInput [(ngModel)]="project.metadata.reward">
     <mat-hint>Points for completed courses</mat-hint>
   </mat-form-field>
 
   <div fxFlex="50" fxLayout="column">
-    <mat-checkbox [(ngModel)]="metadata.active">Active</mat-checkbox>
-    <mat-checkbox [(ngModel)]="metadata.is_challenge">Challenge</mat-checkbox>
+    <mat-checkbox [(ngModel)]="project.metadata.active">Active</mat-checkbox>
+    <mat-checkbox [(ngModel)]="project.metadata.is_challenge">Challenge</mat-checkbox>
   </div>
 
   <div fxFlex="100" fxLayout="row" fxLayoutAlign="flex-end flex-start">
     <button mat-flat-button color="primary"
-            (click)="save()">{{this.data?.course_metadata ? 'Save' : 'Create course'}}</button>
+            (click)="save()">{{this.data?.project?.metadata ? 'Save' : 'Create course'}}</button>
   </div>
 </div>

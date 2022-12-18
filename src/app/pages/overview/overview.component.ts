@@ -12,7 +12,7 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.courseService.createNewCourse()
+    //this.courseService.createNewCourse();
   }
 
 }

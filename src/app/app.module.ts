@@ -16,17 +16,20 @@ import {OverviewComponent} from './pages/overview/overview.component';
 import {CourseSettingsComponent} from './dialog/course-settings/course-settings.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {FlexModule} from "@angular/flex-layout";
-import {MatSelectModule} from "@angular/material/select";
-import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {FlexModule} from '@angular/flex-layout';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {ProjectComponent} from './pages/project/project.component';
+import {MatIconModule} from '@angular/material/icon';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
-  declarations: [AppComponent, OverviewComponent, CourseSettingsComponent],
+  declarations: [AppComponent, OverviewComponent, CourseSettingsComponent, ProjectComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -47,7 +50,9 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     MatInputModule,
     FlexModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
