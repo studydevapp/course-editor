@@ -1,18 +1,31 @@
-<div fxLayout="column" *ngIf="$project | async as project">
-
-  <div style="display:flex;gap:10px">
-
-    <div>
-      <button mat-flat-button color="primary" (click)="openSettings(project)">Settings</button>
-    </div>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Language</mat-label>
-      <mat-select>
-        <mat-option [value]="'de'">German</mat-option>
-        <mat-option [value]="'en'">English</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-</div>
+<mat-tab-group>
+  <mat-tab label="Project overview">
+    <div style="margin-top:30px"></div>
+    <app-project-overview [project]="project" [lang]="lang"></app-project-overview>
+  </mat-tab>
+  <mat-tab label="Tasks">
+    <div style="margin-top:30px"></div>
+    <app-project-tasks [project]="project" [lang]="lang"></app-project-tasks>
+  </mat-tab>
+  <mat-tab disabled>
+    <ng-template mat-tab-label>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button mat-flat-button color="primary" (click)="openSettings()">Settings</button>
+          <mat-form-field style="margin-top:20px;width:80px">
+            <mat-label>Language</mat-label>
+            <mat-select [(ngModel)]="lang">
+              <mat-option [value]="'de'">German</mat-option>
+              <mat-option [value]="'en'">English</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <span style="position:relative">
+          {{project.metadata.text[lang].title || 'Unnamed Course'}}
+          <div *ngIf="hasChanged()" matTooltip="Unsaved Changes"
+               style="position:absolute;right:-10px;top:-5px;width:8px;height:8px;background:orange;border-radius:10px"></div>
+        </span>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

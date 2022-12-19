@@ -1,0 +1,10 @@
+<div style="display:flex;flex-direction:column" fxFlex="100" fxFlex.gt-sm="50">
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="project.metadata.text[lang].title">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput [(ngModel)]="project.metadata.text[lang].description"></textarea>
+  </mat-form-field>
+</div>

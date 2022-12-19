@@ -1,9 +1,11 @@
+@import '~styles/vars';
+
 .wrapper {
   height: 100vh;
-  background: #0a0a2d;
+  background: $bg-color;
 
   .navbar {
-    background: #1d1d71;
+    background: lighten($bg-color, 3%);
     height: 50px;
     display: flex;
     align-items: center;
@@ -17,15 +19,14 @@
     }
 
     a {
-      padding: 10px;
-      background: #24248d;
+      background: transparent;
       border-radius: 5px;
       cursor: Pointer;
       text-decoration: none;
       color: white;
 
       &:hover, &.active {
-        background: #2a2a9d;
+        background: rgba(255, 255, 255, 0.1);
       }
     }
   }

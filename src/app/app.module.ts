@@ -24,12 +24,17 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {ProjectComponent} from './pages/project/project.component';
 import {MatIconModule} from '@angular/material/icon';
+import {ProjectTasksComponent} from './pages/project/project-tasks/project-tasks.component';
+import {ProjectOverviewComponent} from './pages/project/project-overview/project-overview.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {ConfirmDialogComponent} from './dialog/confirm-dialog/confirm-dialog.component';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
-  declarations: [AppComponent, OverviewComponent, CourseSettingsComponent, ProjectComponent],
+  declarations: [AppComponent, OverviewComponent, CourseSettingsComponent, ProjectComponent, ProjectTasksComponent, ProjectOverviewComponent, ConfirmDialogComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -52,7 +57,9 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     MatSelectModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
