@@ -2,7 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {OverviewComponent} from './pages/overview/overview.component';
 import {ProjectComponent} from './pages/project/project.component';
-import {PendingChangesGuard} from "./common/guards/pending-changes.guard";
+import {PendingChangesGuard} from './common/guards/pending-changes.guard';
+import {SettingsComponent} from './pages/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
     pathMatch: 'full',
     title: 'Overview'
   },
+  {path: 'settings', component: SettingsComponent, title: 'Settings'},
   {
     path: 'project/:slug',
     component: ProjectComponent,

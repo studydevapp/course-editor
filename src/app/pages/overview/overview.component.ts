@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseService} from '../../services/course.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-overview',
@@ -8,11 +9,17 @@ import {CourseService} from '../../services/course.service';
 })
 export class OverviewComponent implements OnInit {
 
-  constructor(public courseService: CourseService) {
+  latestSdkVersion: string;
+
+  constructor(public courseService: CourseService,
+              private http: HttpClient) {
   }
 
   ngOnInit() {
     //this.courseService.createNewCourse();
+    this.http.get<{ version: string }>('https://registry.npmjs.org/@studydev/sdk/latest').subscribe(res => {
+      this.latestSdkVersion = res.version;
+    });
   }
 
 }

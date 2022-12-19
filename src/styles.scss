@@ -6,6 +6,10 @@
 
 @import 'styles/vars';
 
+@import 'styles/quill.theme';
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/material';
+
 $angular-primary: mat.define-palette(mat.$teal-palette, 500, 100, 900);
 $angular-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
@@ -33,6 +37,11 @@ $angular-dark-theme: mat.define-dark-theme(
     )
 );
 
+/* codemirror overwrites*/
+.cm-s-material.CodeMirror, .cm-s-material .CodeMirror-gutters {
+  background-color: transparent;
+}
+
 /* You can add global styles to this file, and also import other style files */
 html, body {
   margin: 0;
@@ -52,4 +61,26 @@ html, body {
 
 .mat-expansion-panel, .mat-select-panel {
   background: lighten($bg-color, 3%) !important;
+}
+
+body .mat-menu-panel {
+  background: lighten($bg-color, 5%) !important;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 9);
 }

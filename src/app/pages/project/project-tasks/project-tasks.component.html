@@ -23,6 +23,24 @@
       </mat-form-field>-->
       <!--<ngx-monaco-editor [options]="editorOptions" [(ngModel)]="task.content"></ngx-monaco-editor>-->
 
+      <!--<quill-editor [(ngModel)]="task.content"></quill-editor>-->
+
+      <mat-menu #codeSnippetMenu="matMenu">
+        <button mat-menu-item>Javascript</button>
+        <button mat-menu-item>HTML</button>
+        <button mat-menu-item>SQL</button>
+      </mat-menu>
+
+
+      <div fxFlex="100" style="display:flex;gap:10px;margin-bottom:10px">
+        <button mat-icon-button [matMenuTriggerFor]="codeSnippetMenu" matTooltip="Copy Code Wrapper">
+          <mat-icon>code</mat-icon>
+        </button>
+      </div>
+      <ngx-codemirror fxFlex="100" [(ngModel)]="task.content"
+                      [options]="{lineNumbers:true, theme: 'material', mode: 'htmlmixed'}"></ngx-codemirror>
+
+
     </div>
   </mat-expansion-panel>
 </mat-accordion>

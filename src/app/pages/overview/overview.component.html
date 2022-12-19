@@ -7,13 +7,29 @@
     <table>
       <tr>
         <th>Slug</th>
-        <th>SdkVersion</th>
+        <th>Sdk Version</th>
         <th>Active</th>
         <th></th>
       </tr>
       <tr *ngFor="let project of courseService.$projects | async">
         <td>{{project.metadata.slug}}</td>
-        <td>{{project.sdk_version}}</td>
+        <td>
+          <div style="display:flex;align-items:center;gap:2px">
+            {{project.sdk_version}}
+            <ng-container *ngIf="latestSdkVersion else loading">
+              <ng-container
+                *ngIf="latestSdkVersion !== project.sdk_version.replace('^', '').replace('~', '') else upToDateContainer">
+                <mat-icon matTooltip="Sdk update available" style="color:orange;font-size:25px">update</mat-icon>
+              </ng-container>
+              <ng-template #upToDateContainer>
+                <mat-icon matTooltip="Sdk up to date" style="color:rgba(75,255,75,0.58);font-size:14px">check_circle</mat-icon>
+              </ng-template>
+            </ng-container>
+            <ng-template #loading>
+              <mat-spinner diameter="20"></mat-spinner>
+            </ng-template>
+          </div>
+        </td>
         <td [ngSwitch]="project.metadata.active">
           <mat-icon *ngSwitchCase="true">check</mat-icon>
           <mat-icon *ngSwitchCase="false">close</mat-icon>
