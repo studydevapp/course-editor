@@ -49,3 +49,7 @@ html, body {
 .mat-dialog-container {
   background: lighten($bg-color, 1%) !important;
 }
+
+.mat-expansion-panel, .mat-select-panel {
+  background: lighten($bg-color, 3%) !important;
+}

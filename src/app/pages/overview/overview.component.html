@@ -7,10 +7,17 @@
     <table>
       <tr>
         <th>Slug</th>
+        <th>SdkVersion</th>
+        <th>Active</th>
         <th></th>
       </tr>
       <tr *ngFor="let project of courseService.$projects | async">
         <td>{{project.metadata.slug}}</td>
+        <td>{{project.sdk_version}}</td>
+        <td [ngSwitch]="project.metadata.active">
+          <mat-icon *ngSwitchCase="true">check</mat-icon>
+          <mat-icon *ngSwitchCase="false">close</mat-icon>
+        </td>
         <td>
           <button mat-flat-button color="primary" routerLink="/project/{{project.metadata.slug}}">Edit</button>
         </td>

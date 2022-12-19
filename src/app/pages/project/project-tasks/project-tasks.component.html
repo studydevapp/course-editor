@@ -1,1 +1,30 @@
-<p>project-tasks works!</p>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let task of project.metadata.text[lang].tasks">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <!--<mat-icon>folder</mat-icon>-->
+        <span>{{task.title}}</span>
+      </mat-panel-title>
+      <mat-panel-description>
+        <span></span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div fxLayout="row wrap">
+
+      <mat-form-field fxFlex="100">
+        <mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="task.title">
+      </mat-form-field>
+
+      <!--<mat-form-field fxFlex="100">
+        <mat-label>Content</mat-label>
+        <textarea matInput [(ngModel)]="task.content"></textarea>
+      </mat-form-field>-->
+      <!--<ngx-monaco-editor [options]="editorOptions" [(ngModel)]="task.content"></ngx-monaco-editor>-->
+
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<app-code-editor></app-code-editor>

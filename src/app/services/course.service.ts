@@ -35,12 +35,17 @@ export class CourseService {
   }
 
   updateProjects() {
-    this.$projects.next(this.electronService.fs.readdirSync(this.workspace).map((folder) => {
-      const metadata = JSON.parse(this.electronService.fs.readFileSync(`${this.workspace}/${folder}/metadata.json`, 'utf8')) as CourseMetadataDto;
-      return {
-        metadata,
-      } as ProjectDto;
-    }));
+    this.$projects.next(this.electronService.fs.readdirSync(this.workspace)
+      .filter(folder => this.electronService.fs.existsSync(`${this.workspace}/${folder}/metadata.json`))
+      .map((folder) => {
+        const metadata = JSON.parse(this.electronService.fs.readFileSync(`${this.workspace}/${folder}/metadata.json`, 'utf8')) as CourseMetadataDto;
+        const packageJson = JSON.parse(this.electronService.fs.readFileSync(`${this.workspace}/${folder}/package.json`, 'utf8'));
+        return {
+          metadata,
+          sdk_version: packageJson.dependencies['@studydev/sdk']
+        } as ProjectDto;
+      })
+    );
   }
 
   createNewCourse() {
@@ -55,6 +60,16 @@ export class CourseService {
 
       this.snackService.open('Done!', undefined, {duration: 3000});
       this.updateProjects();
+    });
+  }
+
+  selectWorkspaceFolder() {
+    this.electronService.dialog.showOpenDialog({properties: ['openDirectory'], defaultPath: this.workspace}).then(r => {
+      if (r.filePaths.length > 0) {
+        this.workspace = r.filePaths[0];
+        localStorage.setItem('workspace', this.workspace);
+        this.updateProjects();
+      }
     });
   }
 }

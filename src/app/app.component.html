@@ -8,7 +8,9 @@
     <!--<span class="title">{{title.getTitle()}}</span>-->
 
     <div style="flex-grow:1;display:flex;justify-content:flex-end">
-      <span style="color:#b9b9b9;font-size:12px">{{courseService.workspace}}</span>
+      <button mat-button (click)="courseService.selectWorkspaceFolder()">
+        <span style="color:#b9b9b9;font-size:12px">{{courseService.workspace}}</span>
+      </button>
     </div>
   </div>
   <div class="content">

@@ -29,12 +29,14 @@ import {ProjectOverviewComponent} from './pages/project/project-overview/project
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {ConfirmDialogComponent} from './dialog/confirm-dialog/confirm-dialog.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import {CodeEditorComponent} from './comps/code-editor/code-editor.component';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
-  declarations: [AppComponent, OverviewComponent, CourseSettingsComponent, ProjectComponent, ProjectTasksComponent, ProjectOverviewComponent, ConfirmDialogComponent],
+  declarations: [AppComponent, OverviewComponent, CourseSettingsComponent, ProjectComponent, ProjectTasksComponent, ProjectOverviewComponent, ConfirmDialogComponent, CodeEditorComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -59,7 +61,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     MatSnackBarModule,
     MatIconModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
