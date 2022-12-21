@@ -4,6 +4,8 @@ import * as fs from 'fs';
 
 require('@electron/remote/main').initialize()
 
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
+
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');

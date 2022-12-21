@@ -29,7 +29,7 @@ export class ElectronService {
       this.fs = window.require('fs');
 
       this.childProcess = window.require('child_process');
-      this.childProcess.exec('node -v', (error, stdout, stderr) => {
+      /*this.childProcess.exec('node -v', (error, stdout, stderr) => {
         if (error) {
           console.error(`error: ${error.message}`);
           return;
@@ -39,7 +39,7 @@ export class ElectronService {
           return;
         }
         console.log(`stdout:\n${stdout}`);
-      });
+      });*/
 
       // Notes :
       // * A NodeJS's dependency imported with 'window.require' MUST BE present in `dependencies` of both `app/package.json`

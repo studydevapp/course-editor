@@ -30,18 +30,26 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {ConfirmDialogComponent} from './dialog/confirm-dialog/confirm-dialog.component';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {CodeEditorComponent} from './comps/code-editor/code-editor.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {SettingsComponent} from './pages/settings/settings.component';
 import {QuillModule} from 'ngx-quill';
 import {CodemirrorModule} from '@ctrl/ngx-codemirror';
-import {MatMenuModule} from "@angular/material/menu";
+import {MatMenuModule} from '@angular/material/menu';
+import {SettingsComponent} from './pages/settings/settings.component';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
-  declarations: [AppComponent, OverviewComponent, CourseSettingsComponent, ProjectComponent, ProjectTasksComponent, ProjectOverviewComponent, ConfirmDialogComponent, CodeEditorComponent, SettingsComponent],
+  declarations: [
+    AppComponent,
+    OverviewComponent,
+    CourseSettingsComponent,
+    ProjectComponent,
+    ProjectTasksComponent,
+    ProjectOverviewComponent,
+    ConfirmDialogComponent,
+    SettingsComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,

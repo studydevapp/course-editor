@@ -1,21 +1,31 @@
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let task of project.metadata.text[lang].tasks">
+<mat-accordion *ngIf="project.info">
+  <mat-expansion-panel *ngFor="let task of project.info.tasks; let i = index">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <!--<mat-icon>folder</mat-icon>-->
-        <span>{{task.title}}</span>
+        <span>{{project.metadata.text[lang].tasks[i].title}}</span>
       </mat-panel-title>
       <mat-panel-description>
-        <span></span>
+        <span>{{task.type.extendClassName}}</span>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
     <div fxLayout="row wrap">
 
-      <mat-form-field fxFlex="100">
+      <mat-form-field fxFlex="100" fxFlex.gt-sm="80">
         <mat-label>Title</mat-label>
-        <input matInput [(ngModel)]="task.title">
+        <input matInput [(ngModel)]="project.metadata.text[lang].tasks[i].title">
       </mat-form-field>
+
+      <div fxFlex="100" fxFlex.gt-sm="20" style="display:flex;justify-content:flex-end;align-items:center;gap:10px">
+        <button mat-icon-button color="primary" (click)="openInVsCode(i)" matTooltip="Open in VsCode"
+                *ngIf="task.type !== taskTypes.TEXT_ONLY">
+          <img src="/assets/vscode.png" style="height:20px;">
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteTask(i)" matTooltip="Delete task">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
 
       <!--<mat-form-field fxFlex="100">
         <mat-label>Content</mat-label>
@@ -37,7 +47,7 @@
           <mat-icon>code</mat-icon>
         </button>
       </div>
-      <ngx-codemirror fxFlex="100" [(ngModel)]="task.content"
+      <ngx-codemirror fxFlex="100" [(ngModel)]="project.metadata.text[lang].tasks[i].content"
                       [options]="{lineNumbers:true, theme: 'material', mode: 'htmlmixed'}"></ngx-codemirror>
 
 
@@ -45,4 +55,10 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<app-code-editor></app-code-editor>
+<mat-menu #addTaskMenu="matMenu">
+  <button mat-menu-item (click)="addTask(taskTypes.TEXT_ONLY)">Text Only</button>
+  <button mat-menu-item (click)="addTask(taskTypes.RUN_CODE)">Run Code</button>
+  <!--<button mat-menu-item (click)="addTask()">Run Function</button>
+  <button mat-menu-item (click)="addTask()">Web</button>-->
+</mat-menu>
+<button mat-flat-button color="primary" style="margin-top:10px" [matMenuTriggerFor]="addTaskMenu">Add Task</button>

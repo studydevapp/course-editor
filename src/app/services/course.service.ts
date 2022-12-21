@@ -6,7 +6,8 @@ import {CourseSettingsComponent} from '../dialog/course-settings/course-settings
 import {CourseMetadataDto} from '../dto/CourseMetadata.dto';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {BehaviorSubject, filter} from 'rxjs';
-import {ProjectDto} from '../dto/Project.dto';
+import {ProjectDto, ProjectTaskDto} from '../dto/Project.dto';
+import {TaskType, TaskTypes} from "../pages/project/project-tasks/TaskTypes";
 
 @Injectable({
   providedIn: 'root'
@@ -38,10 +39,12 @@ export class CourseService {
     this.$projects.next(this.electronService.fs.readdirSync(this.workspace)
       .filter(folder => this.electronService.fs.existsSync(`${this.workspace}/${folder}/metadata.json`))
       .map((folder) => {
-        const metadata = JSON.parse(this.electronService.fs.readFileSync(`${this.workspace}/${folder}/metadata.json`, 'utf8')) as CourseMetadataDto;
-        const packageJson = JSON.parse(this.electronService.fs.readFileSync(`${this.workspace}/${folder}/package.json`, 'utf8'));
+        const projectPath = `${this.workspace}/${folder}`;
+        const metadata = JSON.parse(this.electronService.fs.readFileSync(`${projectPath}/metadata.json`, 'utf8')) as CourseMetadataDto;
+        const packageJson = JSON.parse(this.electronService.fs.readFileSync(`${projectPath}/package.json`, 'utf8'));
         return {
           metadata,
+          path: projectPath,
           sdk_version: packageJson.dependencies['@studydev/sdk']
         } as ProjectDto;
       })
@@ -63,6 +66,20 @@ export class CourseService {
     });
   }
 
+  loadProjectInfo(project: ProjectDto) {
+    //const indexContent = this.electronService.fs.readFileSync(`${project.path}/src/index.ts`, 'utf8');
+
+    const tasks: ProjectTaskDto[] = [];
+    for (let i = 1; this.electronService.fs.existsSync(`${project.path}/src/task${i}.ts`); i++) {
+      const taskContent = this.electronService.fs.readFileSync(`${project.path}/src/task${i}.ts`, 'utf8');
+      const extendsWhatClass = taskContent.match(/extends\s+([a-zA-Z0-9]+)/)[1];
+      const taskType = Object.keys(TaskTypes).find(key => (TaskTypes[key] as TaskType).extendClassName === extendsWhatClass);
+      tasks.push({type: TaskTypes[taskType], code: taskContent});
+    }
+
+    project.info = {tasks};
+  }
+
   selectWorkspaceFolder() {
     this.electronService.dialog.showOpenDialog({properties: ['openDirectory'], defaultPath: this.workspace}).then(r => {
       if (r.filePaths.length > 0) {
@@ -71,5 +88,24 @@ export class CourseService {
         this.updateProjects();
       }
     });
+  }
+
+  saveProject(project: ProjectDto) {
+    // save metadata
+    this.electronService.fs.writeFileSync(`${project.path}/metadata.json`, JSON.stringify(project.metadata, null, 2));
+
+    // update index.ts
+    let content = `import {Course, startCourse} from '@studydev/sdk';\n`;
+    project.info.tasks.forEach((task, i) => content += `import T${i + 1} from './task${i + 1}';\n`);
+    content += `\nstartCourse(new Course([\n${project.info.tasks.map((task, i) => `new T${i + 1}()`).join(', ')}\n]));`;
+
+    this.electronService.fs.writeFileSync(`${project.path}/src/index.ts`, content);
+
+    // reload project
+    this.reloadProject(project);
+  }
+
+  reloadProject(project: ProjectDto) {
+    this.loadProjectInfo(project);
   }
 }

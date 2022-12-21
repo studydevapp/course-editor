@@ -32,7 +32,8 @@ export class ProjectComponent implements OnInit, OnDestroy, ComponentCanDeactiva
 
   @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
-    return !this.hasChanged();
+    //return !this.hasChanged();
+    return true; // TODO: remove after release
   }
 
   ngOnInit() {
@@ -41,7 +42,9 @@ export class ProjectComponent implements OnInit, OnDestroy, ComponentCanDeactiva
         map(slug => this.courseService.$projects.value.find(p => p.metadata.slug === slug)),
       ).subscribe(p => {
         this.project = JSON.parse(JSON.stringify(p));
-        this.projectCopy = JSON.parse(JSON.stringify(p));
+        this.courseService.loadProjectInfo(this.project);
+
+        this.projectCopy = JSON.parse(JSON.stringify(this.project));
       })
     );
   }
@@ -56,5 +59,10 @@ export class ProjectComponent implements OnInit, OnDestroy, ComponentCanDeactiva
 
   ngOnDestroy() {
     this.subs.unsubscribe();
+  }
+
+  save() {
+    this.courseService.saveProject(this.project);
+    this.projectCopy = JSON.parse(JSON.stringify(this.project));
   }
 }

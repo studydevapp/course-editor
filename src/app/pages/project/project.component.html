@@ -5,7 +5,7 @@
   </mat-tab>
   <mat-tab label="Tasks">
     <div style="margin-top:30px"></div>
-    <app-project-tasks [project]="project" [lang]="lang"></app-project-tasks>
+    <app-project-tasks [project]="project" [lang]="lang" (save)="save()"></app-project-tasks>
   </mat-tab>
   <mat-tab disabled>
     <ng-template mat-tab-label>
@@ -20,10 +20,13 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <span style="position:relative">
-          {{project.metadata.text[lang].title || 'Unnamed Course'}}
-          <div *ngIf="hasChanged()" matTooltip="Unsaved Changes"
-               style="position:absolute;right:-10px;top:-5px;width:8px;height:8px;background:orange;border-radius:10px"></div>
+        <span style="display:flex;gap:10px;align-items:center">
+          <span>{{project.metadata.text[lang].title || 'Unnamed Course'}}</span>
+          <button mat-flat-button style="background:rgba(31,255,0,0.1);position:relative" [disabled]="!hasChanged()" (click)="save()">
+            Save
+            <div *ngIf="hasChanged()" matTooltip="Unsaved Changes"
+                 style="position:absolute;right:-5px;top:-5px;width:8px;height:8px;background:orange;border-radius:10px"></div>
+          </button>
         </span>
       </div>
     </ng-template>

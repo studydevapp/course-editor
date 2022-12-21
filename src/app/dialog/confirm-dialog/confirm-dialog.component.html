@@ -1,5 +1,5 @@
 <div style="display:flex;flex-direction:column;gap:10px;">
-  {{data.message}}
+  <span [innerHTML]="data.message"></span>
   <div style="display:flex;justify-content:flex-end;gap:10px">
     <button mat-flat-button color="primary" [mat-dialog-close]="true">Yes</button>
     <button mat-flat-button color="warn" [mat-dialog-close]="false">Cancel</button>
