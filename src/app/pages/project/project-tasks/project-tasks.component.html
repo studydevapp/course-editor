@@ -17,7 +17,19 @@
         <input matInput [(ngModel)]="project.metadata.text[lang].tasks[i].title">
       </mat-form-field>
 
-      <div fxFlex="100" fxFlex.gt-sm="20" style="display:flex;justify-content:flex-end;align-items:center;gap:10px">
+      <div fxFlex="100" fxFlex.gt-sm="20" style="display:flex;justify-content:flex-end;align-items:center;gap:5px">
+
+        <mat-menu #codeSnippetMenu="matMenu">
+          <button mat-menu-item (click)="copyCodeTemplateToClipboard('javascript')">Javascript</button>
+          <button mat-menu-item (click)="copyCodeTemplateToClipboard('python')">Python</button>
+          <button mat-menu-item (click)="copyCodeTemplateToClipboard('html')">HTML</button>
+          <button mat-menu-item (click)="copyCodeTemplateToClipboard('sql')">SQL</button>
+        </mat-menu>
+        <button mat-icon-button [matMenuTriggerFor]="codeSnippetMenu" matTooltip="Code Templates">
+          <mat-icon>code</mat-icon>
+        </button>
+
+
         <button mat-icon-button color="primary" (click)="openInVsCode(i)" matTooltip="Open in VsCode"
                 *ngIf="task.type !== taskTypes.TEXT_ONLY">
           <img src="/assets/vscode.png" style="height:20px;">
@@ -34,31 +46,15 @@
       <!--<ngx-monaco-editor [options]="editorOptions" [(ngModel)]="task.content"></ngx-monaco-editor>-->
 
       <!--<quill-editor [(ngModel)]="task.content"></quill-editor>-->
-
-      <mat-menu #codeSnippetMenu="matMenu">
-        <button mat-menu-item>Javascript</button>
-        <button mat-menu-item>HTML</button>
-        <button mat-menu-item>SQL</button>
-      </mat-menu>
-
-
-      <div fxFlex="100" style="display:flex;gap:10px;margin-bottom:10px">
-        <button mat-icon-button [matMenuTriggerFor]="codeSnippetMenu" matTooltip="Copy Code Wrapper">
-          <mat-icon>code</mat-icon>
-        </button>
-      </div>
       <ngx-codemirror fxFlex="100" [(ngModel)]="project.metadata.text[lang].tasks[i].content"
                       [options]="{lineNumbers:true, theme: 'material', mode: 'htmlmixed'}"></ngx-codemirror>
 
 
     </div>
   </mat-expansion-panel>
+  <span *ngIf="!project.info.tasks?.length" style="color:#b2b2b2;font-size:14px">Click the plus icon at the top to add tasks.</span>
 </mat-accordion>
 
-<mat-menu #addTaskMenu="matMenu">
-  <button mat-menu-item (click)="addTask(taskTypes.TEXT_ONLY)">Text Only</button>
-  <button mat-menu-item (click)="addTask(taskTypes.RUN_CODE)">Run Code</button>
-  <!--<button mat-menu-item (click)="addTask()">Run Function</button>
-  <button mat-menu-item (click)="addTask()">Web</button>-->
-</mat-menu>
-<button mat-flat-button color="primary" style="margin-top:10px" [matMenuTriggerFor]="addTaskMenu">Add Task</button>
+<!--<pre>{{project.metadata.text[lang].tasks | json}}</pre>
+<br/>
+<pre>{{project.info.tasks | json}}</pre>-->

@@ -4,6 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {APP_CONFIG} from '../environments/environment';
 import {Title} from '@angular/platform-browser';
 import {CourseService} from './services/course.service';
+import {MiscService} from "./services/misc.service";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
     private electronService: ElectronService,
     private translate: TranslateService,
     public title: Title,
-    public courseService: CourseService
+    public courseService: CourseService,
+    public miscService: MiscService,
   ) {
     this.translate.setDefaultLang('en');
     console.log('APP_CONFIG', APP_CONFIG);
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.courseService.setup();
+    this.miscService.setup();
     this.courseService.updateProjects();
   }
 }

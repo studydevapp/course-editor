@@ -5,7 +5,8 @@
       <mat-icon>home</mat-icon>
     </a>
     <a mat-icon-button routerLink="/settings" routerLinkActive="active">
-      <mat-icon>settings</mat-icon>
+      <mat-icon [matBadge]="miscService.settings.studydev_auth_token ? null : '!'" matBadgeColor="warn">settings
+      </mat-icon>
     </a>
 
     <!--<span class="title">{{title.getTitle()}}</span>-->

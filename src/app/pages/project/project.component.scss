@@ -3,6 +3,7 @@
     & > div:last-child {
       flex-grow: 1;
       opacity: 1;
+      padding: 0 0 0 20px;
 
       & > * {
         display: flex;
@@ -15,4 +16,8 @@
       }
     }
   }
+}
+
+.lightgreen-button {
+  color: rgb(67, 204, 67);
 }

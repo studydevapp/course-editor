@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MiscService} from "../../services/misc.service";
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  studydev_auth_token_hide = true;
 
-  ngOnInit(): void {
+  constructor(public miscService: MiscService) {
   }
 
+  ngOnInit() {
+  }
 }

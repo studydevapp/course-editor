@@ -67,6 +67,20 @@ body .mat-menu-panel {
   background: lighten($bg-color, 5%) !important;
 }
 
+.mat-snack-bar-container {
+  &.error {
+    background: #ff6f6f;
+  }
+}
+
+.no-padding-full-width {
+  max-width: unset !important;
+
+  mat-dialog-container {
+    padding: 0 !important;
+  }
+}
+
 
 ::-webkit-scrollbar {
   width: 10px;

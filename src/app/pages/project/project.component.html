@@ -1,4 +1,4 @@
-<mat-tab-group selectedIndex="1">
+<mat-tab-group>
   <mat-tab label="Overview">
     <div style="margin-top:30px"></div>
     <app-project-overview [project]="project" [lang]="lang"></app-project-overview>
@@ -20,13 +20,39 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <span style="display:flex;gap:10px;align-items:center">
-          <span>{{project.metadata.text[lang].title || 'Unnamed Course'}}</span>
+        <span style="display:flex;align-items:center">
+          <!--<span>{{project.metadata.text[lang].title || 'Unnamed Course'}}</span>
           <button mat-flat-button style="background:rgba(31,255,0,0.1);position:relative" [disabled]="!hasChanged()" (click)="save()">
             Save
             <div *ngIf="hasChanged()" matTooltip="Unsaved Changes"
                  style="position:absolute;right:-5px;top:-5px;width:8px;height:8px;background:orange;border-radius:10px"></div>
+          </button>-->
+        <mat-menu #addTaskMenu="matMenu">
+          <button mat-menu-item (click)="addTask(taskTypes.TEXT_ONLY)">Text Only</button>
+          <button mat-menu-item (click)="addTask(taskTypes.RUN_CODE)">Run Code</button>
+          <button mat-menu-item (click)="addTask(taskTypes.RUN_FUNCTION)">Run Function</button>
+          <button mat-menu-item (click)="addTask(taskTypes.WEB)">Web</button>
+          <!--<button mat-menu-item (click)="addTask()">Run Function</button>
+          <button mat-menu-item (click)="addTask()">Web</button>-->
+        </mat-menu>
+        <button mat-icon-button [matMenuTriggerFor]="addTaskMenu" style="color:white" matTooltip="Add Task">
+          <mat-icon>add</mat-icon>
+        </button>
+
+
+          <button mat-icon-button class="lightgreen-button" matTooltip="Save course" [disabled]="!hasChanged()"
+                  (click)="save()">
+            <mat-icon>save</mat-icon>
           </button>
+          <button mat-icon-button class="lightgreen-button" matTooltip="Save, Deploy & Start course"
+                  (click)="saveDeployStart()" [disabled]="loading">
+            <mat-icon *ngIf="!loading else isLoadingTmpl">play_arrow</mat-icon>
+            <ng-template #isLoadingTmpl><div style="display:flex;justify-content:center"><mat-spinner
+              diameter="20"></mat-spinner></div></ng-template>
+          </button>
+
+          <!--<button (click)="startCourse()">run</button>-->
+
         </span>
       </div>
     </ng-template>

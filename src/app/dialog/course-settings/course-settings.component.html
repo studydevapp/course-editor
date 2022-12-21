@@ -39,8 +39,15 @@
     <mat-checkbox [(ngModel)]="project.metadata.is_challenge">Challenge</mat-checkbox>
   </div>
 
+  <mat-form-field fxFlex="50">
+    <mat-label>Features</mat-label>
+    <mat-select [multiple]="true" [(ngModel)]="project.metadata.request_features">
+      <mat-option [value]="'db_postgres'">Postgres (Database)</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <div fxFlex="100" fxLayout="row" fxLayoutAlign="flex-end flex-start">
     <button mat-flat-button color="primary"
-            (click)="save()">{{this.data?.project?.metadata ? 'Save' : 'Create course'}}</button>
+            (click)="save()">{{this.data?.project?.metadata ? 'Close' : 'Create course'}}</button>
   </div>
 </div>

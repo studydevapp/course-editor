@@ -35,6 +35,9 @@ import {QuillModule} from 'ngx-quill';
 import {CodemirrorModule} from '@ctrl/ngx-codemirror';
 import {MatMenuModule} from '@angular/material/menu';
 import {SettingsComponent} from './pages/settings/settings.component';
+import {CourseExecutionDialogComponent} from './dialog/course-execution-dialog/course-execution-dialog.component';
+import {SafePipe} from "./common/pipes/Safe.pipe";
+import {MatBadgeModule} from "@angular/material/badge";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -48,7 +51,9 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     ProjectTasksComponent,
     ProjectOverviewComponent,
     ConfirmDialogComponent,
-    SettingsComponent
+    SettingsComponent,
+    CourseExecutionDialogComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
@@ -79,7 +84,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     MatTooltipModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

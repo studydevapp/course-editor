@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProjectDto} from '../../../dto/Project.dto';
-import {TaskType, TaskTypes} from './TaskTypes';
 import {ElectronService} from '../../../core/services';
 import {CourseService} from '../../../services/course.service';
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../../../dialog/confirm-dialog/confirm-dialog.component";
 import {filter} from "rxjs";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {TaskTypes} from "./TaskTypes";
 
 @Component({
   selector: 'app-project-tasks',
@@ -23,6 +24,7 @@ export class ProjectTasksComponent implements OnInit {
 
   constructor(private electronService: ElectronService,
               private dialog: MatDialog,
+              private snackService: MatSnackBar,
               private courseService: CourseService) {
   }
 
@@ -31,38 +33,28 @@ export class ProjectTasksComponent implements OnInit {
     // ${this.project.path}/src/index.ts
   }
 
-  addTask(taskType: TaskType) {
-    // create new file
-    //this.electronService.fs.writeFileSync(`${this.project.path} / src /${this.project.metadata.text}`, template);
-
-    this.project.metadata.text.de.tasks.push({title: '', content: ''});
-    this.project.metadata.text.en.tasks.push({title: '', content: ''});
-
-    // this is for the saveProject function
-    this.project.info.tasks.push({type: taskType, code: ''});
-
-    // create new file with content
-    this.electronService.fs.writeFileSync(`${this.project.path}/src/task${this.project.metadata.text.de.tasks.length}.ts`, taskType.template);
-
-    this.save.emit();
-  }
-
   deleteTask(deleteIndex: number) {
     this.dialog.open(ConfirmDialogComponent, {data: {message: 'Do you really want to delete this task?<br/>(Save all open files in your editor for this course, otherwise you will lose data!)'}}).afterClosed().pipe(filter(d => !!d)).subscribe(() => {
+      this.save.emit(); // this will also load task content
       this.project.metadata.text.de.tasks.splice(deleteIndex, 1);
       this.project.metadata.text.en.tasks.splice(deleteIndex, 1);
-      this.save.emit(); // this will also load task content
       // delete all task files & recreate them
       this.project.info.tasks.forEach((t, i) => this.electronService.fs.rmSync(`${this.project.path}/src/task${i + 1}.ts`));
       this.project.info.tasks.splice(deleteIndex, 1);
-      this.project.info.tasks.forEach((t, index) => {
-        this.electronService.fs.writeFileSync(`${this.project.path}/src/task${index + 1}.ts`, t.code);
-      });
+      this.project.info.tasks.forEach((t, i) => this.electronService.fs.writeFileSync(`${this.project.path}/src/task${i + 1}.ts`, t.code));
       this.save.emit();
     });
   }
 
   openInVsCode(i: number) {
     this.electronService.childProcess.execSync(`code ${this.project.path}/src/task${i + 1}.ts`);
+  }
+
+  copyCodeTemplateToClipboard(codeLang: string) {
+    navigator.clipboard.writeText(`<pre class="code-highlight" data-lang="text/${codeLang}">\n</pre>`).then(() => {
+      this.snackService.open('Successfully copied into clipboard.', undefined, {duration: 3000, panelClass: 'success'});
+    }).catch(err => {
+      this.snackService.open('Could not copy to clipboard: ' + err, undefined, {duration: 3000, panelClass: 'error'});
+    });
   }
 }

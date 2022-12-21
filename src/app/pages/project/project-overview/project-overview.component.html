@@ -1,10 +1,58 @@
-<div style="display:flex;flex-direction:column" fxFlex="100" fxFlex.gt-sm="50">
-  <mat-form-field appearance="outline">
-    <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="project.metadata.text[lang].title">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Description</mat-label>
-    <textarea matInput [(ngModel)]="project.metadata.text[lang].description"></textarea>
-  </mat-form-field>
+<div fxLayout="row wrap">
+  <div fxFlex="100" fxFlex.gt-sm="50" fxFill>
+    <div style="display:flex;flex-direction:column">
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="project.metadata.text[lang].title">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="project.metadata.text[lang].description"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxFlex="100" fxFlex.gt-sm="50">
+    <div style="padding:10px;display:flex;flex-direction:column;align-items:flex-start;gap:2px">
+      <img src="file:///{{project.path}}/assets/thumbnail.png?rand={{rand}}" style="max-width:200px;max-height:150px"
+           *ngIf="!copyingImage else copyingImageLoading">
+      <ng-template #copyingImageLoading>
+        <mat-spinner [diameter]="20"></mat-spinner>
+      </ng-template>
+      <button mat-flat-button color="primary" (click)="changeThumbnail()">Change Thumbnail</button>
+      <span style="color:grey;font-size:12px">Recommended resolution: 1280x720</span>
+    </div>
+  </div>
+</div>
+
+
+<div style="margin-top:50px">
+  <table class="check-table">
+    <tr>
+      <th></th>
+      <th>German</th>
+      <th>English</th>
+    </tr>
+    <tr>
+      <td>Title</td>
+      <td>{{project.metadata.text.de.title}}</td>
+      <td>{{project.metadata.text.en.title}}</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>{{project.metadata.text.de.description}}</td>
+      <td>{{project.metadata.text.en.description}}</td>
+    </tr>
+    <ng-container *ngFor="let t of project.info.tasks; let i = index">
+      <tr>
+        <td rowspan="2">Task #{{i}}</td>
+        <td>{{project.metadata.text.de.tasks[i].title}}</td>
+        <td>{{project.metadata.text.en.tasks[i].title}}</td>
+      </tr>
+      <tr>
+        <td class="not-first">{{project.metadata.text.de.tasks[i].content}}</td>
+        <td>{{project.metadata.text.en.tasks[i].content}}</td>
+      </tr>
+    </ng-container>
+  </table>
 </div>

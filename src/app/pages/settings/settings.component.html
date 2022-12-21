@@ -1,10 +1,23 @@
-<div fxLayout="row wrap" style="padding:0 30px">
+<div fxLayout="column" style="padding:0 30px">
 
-  <h3 fxFlex="100">Settings</h3>
+  <h3>Settings</h3>
 
-  <mat-form-field appearance="outline" style="width:400px">
+  <mat-form-field appearance="outline" style="width:500px">
     <mat-label>Deepl API-Key</mat-label>
-    <input matInput>
+    <input matInput [(ngModel)]="miscService.settings.deepl_api_key" (ngModelChange)="miscService.saveSettings()">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="width:500px">
+    <mat-label>StudyDev Auth-Token</mat-label>
+    <input matInput [(ngModel)]="miscService.settings.studydev_auth_token"
+           [type]="studydev_auth_token_hide ? 'password' : 'text'"
+           (ngModelChange)="miscService.saveSettings()">
+    <mat-icon matSuffix
+              (click)="studydev_auth_token_hide = !studydev_auth_token_hide">{{studydev_auth_token_hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    <mat-hint>
+      Generate from <span style="color:#fbc3ff">https://study.dev/dashboard/settings/generate_auth_token</span><br/>
+      <span style="color:#ff5151;font-weight:bold" *ngIf="!miscService.settings.studydev_auth_token">Required</span>
+    </mat-hint>
   </mat-form-field>
 
 </div>

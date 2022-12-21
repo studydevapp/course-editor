@@ -17,12 +17,31 @@
           <div style="display:flex;align-items:center;gap:2px">
             {{project.sdk_version}}
             <ng-container *ngIf="latestSdkVersion else loading">
-              <ng-container
+              <span *ngIf="hasUpdate(project.sdk_version) as updateType else upToDateContainer">
+
+                <ng-container [ngSwitch]="updateType">
+                  <button mat-icon-button (click)="update(project)" [disabled]="project['_sdk_update']">
+                    <ng-container *ngIf="!project['_sdk_update'] else btnLoading">
+                      <mat-icon *ngSwitchCase="'minor'" matTooltip="Minor update available to {{latestSdkVersion}}"
+                                style="color:orange;font-size:25px">update</mat-icon>
+                      <mat-icon *ngSwitchCase="'major'" matTooltip="Major update available to {{latestSdkVersion}}"
+                                style="color:#ff3838;font-size:25px">update</mat-icon>
+                      <span *ngSwitchDefault>{{updateType}}</span>
+                    </ng-container>
+                    <ng-template #btnLoading>
+                      <mat-spinner diameter="20"></mat-spinner>
+                    </ng-template>
+                </button>
+            </ng-container>
+
+            </span>
+              <!--<ng-container
                 *ngIf="latestSdkVersion !== project.sdk_version.replace('^', '').replace('~', '') else upToDateContainer">
                 <mat-icon matTooltip="Sdk update available" style="color:orange;font-size:25px">update</mat-icon>
-              </ng-container>
+              </ng-container>-->
               <ng-template #upToDateContainer>
-                <mat-icon matTooltip="Sdk up to date" style="color:rgba(75,255,75,0.58);font-size:14px">check_circle</mat-icon>
+                <mat-icon matTooltip="Sdk up to date" style="color:rgba(75,255,75,0.58);font-size:14px">check_circle
+                </mat-icon>
               </ng-template>
             </ng-container>
             <ng-template #loading>
