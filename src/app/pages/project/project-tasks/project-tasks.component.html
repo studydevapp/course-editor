@@ -46,9 +46,12 @@
       <!--<ngx-monaco-editor [options]="editorOptions" [(ngModel)]="task.content"></ngx-monaco-editor>-->
 
       <!--<quill-editor [(ngModel)]="task.content"></quill-editor>-->
-      <ngx-codemirror fxFlex="100" [(ngModel)]="project.metadata.text[lang].tasks[i].content"
-                      [options]="{lineNumbers:true, theme: 'material', mode: 'htmlmixed'}"></ngx-codemirror>
-
+      <!--<ngx-codemirror fxFlex="100" [(ngModel)]="project.metadata.text[lang].tasks[i].content"
+                      [options]="{lineNumbers:true, theme: 'material', mode: 'htmlmixed'}"></ngx-codemirror>-->
+      <div fxFlex="100" style="height:400px;resize:vertical;overflow:auto">
+        <app-code-editor [(content)]="project.metadata.text[lang].tasks[i].content" language="html">
+        </app-code-editor>
+      </div>
 
     </div>
   </mat-expansion-panel>

@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {HttpClient} from "@angular/common/http";
+import {map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,8 @@ export class MiscService {
     studydev_auth_token: ''
   };
 
-  constructor(private snackService: MatSnackBar) {
+  constructor(private snackService: MatSnackBar,
+              private http: HttpClient) {
   }
 
   setup() {
@@ -27,17 +30,19 @@ export class MiscService {
     localStorage.setItem('settings', JSON.stringify(this.settings));
   }
 
-  translate(targetLang: string, text: string) {
-    return new Promise((resolve, reject) => {
-      fetch(`https://api.deepl.com/v2/translate?auth_key=${this.settings.deepl_api_key}&target_lang=${targetLang}&text=${text}`)
-        .then(response => response.json())
-        .then(data => {
-          resolve(data.translations[0].text);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
+  translate(targetLang: string, text: string[]) {
+    return this.http.post<any>(`https://api-free.deepl.com/v2/translate`, {
+      target_lang: targetLang,
+      text: text,
+      ignore_tags: ['pre', 'mark'],
+      tag_handling: 'xml'
+    }, {
+      headers: {
+        Authorization: 'DeepL-Auth-Key ' + this.settings.deepl_api_key
+      }
+    }).pipe(
+      map(r => r.translations as { text: string }[])
+    );
   }
 
 }

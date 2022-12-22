@@ -32,26 +32,39 @@
       <th></th>
       <th>German</th>
       <th>English</th>
+      <th></th>
     </tr>
     <tr>
-      <td>Title</td>
-      <td>{{project.metadata.text.de.title}}</td>
-      <td>{{project.metadata.text.en.title}}</td>
+      <td class="small-grey">Title</td>
+      <td *ngFor="let l of langs"
+          [class.empty]="!project.metadata.text[l].title">{{project.metadata.text[l].title}}</td>
+      <td></td>
     </tr>
     <tr>
-      <td>Description</td>
-      <td>{{project.metadata.text.de.description}}</td>
-      <td>{{project.metadata.text.en.description}}</td>
+      <td class="small-grey">Description</td>
+      <td *ngFor="let l of langs"
+          [class.empty]="!project.metadata.text[l].description">{{project.metadata.text[l].description}}</td>
+      <td></td>
     </tr>
     <ng-container *ngFor="let t of project.info.tasks; let i = index">
-      <tr>
-        <td rowspan="2">Task #{{i}}</td>
-        <td>{{project.metadata.text.de.tasks[i].title}}</td>
-        <td>{{project.metadata.text.en.tasks[i].title}}</td>
+      <tr class="top-border">
+        <td class="small-grey">Task{{i}} Title</td>
+        <td *ngFor="let l of langs"
+            [class.empty]="!project.metadata.text[l].tasks[i].title">{{project.metadata.text[l].tasks[i].title}}</td>
+        <td colspan="2">
+          <a *ngIf="!project.metadata.text.en.tasks[i].title && !project.metadata.text.en.tasks[i].content">
+            <a style="color:#7f7fff;cursor:Pointer" (click)="translate('de', 'en', i)">Translate DE to EN</a>
+          </a>
+        </td>
       </tr>
-      <tr>
-        <td class="not-first">{{project.metadata.text.de.tasks[i].content}}</td>
-        <td>{{project.metadata.text.en.tasks[i].content}}</td>
+      <tr class="bottom-border">
+        <td class="small-grey">
+          Task{{i}} Description
+        </td>
+        <td *ngFor="let l of langs" [class.empty]="!project.metadata.text[l].tasks[i].content">
+          {{project.metadata.text[l].tasks[i].content}}
+        </td>
+        <td></td>
       </tr>
     </ng-container>
   </table>

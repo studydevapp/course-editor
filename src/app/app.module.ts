@@ -38,6 +38,7 @@ import {SettingsComponent} from './pages/settings/settings.component';
 import {CourseExecutionDialogComponent} from './dialog/course-execution-dialog/course-execution-dialog.component';
 import {SafePipe} from "./common/pipes/Safe.pipe";
 import {MatBadgeModule} from "@angular/material/badge";
+import { CodeEditorComponent } from './comps/code-editor/code-editor.component';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,7 +54,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     ConfirmDialogComponent,
     SettingsComponent,
     CourseExecutionDialogComponent,
-    SafePipe
+    SafePipe,
+    CodeEditorComponent
   ],
   imports: [
     BrowserModule,

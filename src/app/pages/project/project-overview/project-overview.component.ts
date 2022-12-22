@@ -3,6 +3,7 @@ import {ProjectDto} from "../../../dto/Project.dto";
 import {ElectronService} from "../../../core/services";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CourseService} from "../../../services/course.service";
+import {MiscService} from "../../../services/misc.service";
 
 @Component({
   selector: 'app-project-overview',
@@ -17,9 +18,12 @@ export class ProjectOverviewComponent implements OnInit {
   copyingImage = false;
   rand = 0;
 
+  langs = ['de', 'en'];
+
   constructor(private electronService: ElectronService,
               private snackService: MatSnackBar,
               private courseService: CourseService,
+              private miscService: MiscService,
               private ngZone: NgZone) {
   }
 
@@ -43,6 +47,16 @@ export class ProjectOverviewComponent implements OnInit {
           });
         });
       }
+    });
+  }
+
+  translate(source: 'de' | 'en', target: string, i: number) {
+    this.miscService.translate(target, [
+      this.project.metadata.text[source].tasks[i].title,
+      this.project.metadata.text[source].tasks[i].content
+    ]).subscribe(r => {
+      this.project.metadata.text[target].tasks[i].title = r[0].text;
+      this.project.metadata.text[target].tasks[i].content = r[1].text;
     });
   }
 }
