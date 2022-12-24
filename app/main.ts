@@ -1,4 +1,4 @@
-import {app, BrowserWindow, dialog, ipcMain, screen} from 'electron';
+import {app, autoUpdater, BrowserWindow, dialog, ipcMain, screen} from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -87,6 +87,10 @@ try {
       createWindow();
     }
   });
+
+  const updateServer = 'hazel-626j3ib7f-lennybakkalian.vercel.app';
+  const url = `${updateServer}/update/${process.platform}/${app.getVersion()}`;
+  autoUpdater.setFeedURL({url});
 
 } catch (e) {
   // Catch Error
