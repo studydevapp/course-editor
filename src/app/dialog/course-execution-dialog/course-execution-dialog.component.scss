@@ -1,8 +1,16 @@
-iframe {
-  padding: 0;
-  border: solid 1px #b9b9b9;
+.wrapper {
+  border: solid 1px rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+
   max-width: 90vw;
   max-height: 90vh;
   width: 1280px;
   height: 720px;
+
+  iframe {
+    padding: 0;
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
 }

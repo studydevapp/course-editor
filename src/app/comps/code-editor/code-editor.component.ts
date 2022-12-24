@@ -39,7 +39,7 @@ export class CodeEditorComponent implements OnInit, AfterViewInit, OnChanges {
   ngAfterViewInit() {
     this.codeEditor = this.codeEditorService.monaco.editor.create(this.monacoContainer.nativeElement, {
       model: this.codeEditorService.monaco.editor.createModel(this.content, this.language),
-      theme: 'vs-dark',
+      theme: 'studydev',
       automaticLayout: true
     });
 
