@@ -1,8 +1,9 @@
 import {app, autoUpdater, BrowserWindow, dialog, ipcMain, screen} from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
+import {enable, initialize} from "@electron/remote/main";
 
-require('@electron/remote/main').initialize()
+initialize();
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
@@ -28,7 +29,7 @@ function createWindow(): BrowserWindow {
     },
   });
 
-  require('@electron/remote/main').enable(win.webContents)
+  enable(win.webContents)
 
   if (serve) {
     const debug = require('electron-debug');
@@ -88,7 +89,7 @@ try {
     }
   });
 
-  const updateServer = 'hazel-626j3ib7f-lennybakkalian.vercel.app';
+  const updateServer = 'studydev-course-editor.vercel.app';
   const url = `${updateServer}/update/${process.platform}/${app.getVersion()}`;
   autoUpdater.setFeedURL({url});
 

@@ -5,6 +5,7 @@ import {Injectable} from '@angular/core';
 import {dialog, ipcRenderer, webFrame} from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
+import * as remote from '@electron/remote';
 
 //const remote = window.require('@electron/remote');
 
@@ -19,6 +20,7 @@ export class ElectronService {
   childProcess: typeof childProcess;
   dialog: typeof dialog;
   fs: typeof fs;
+  remote: typeof remote;
 
   constructor() {
     // Conditional imports

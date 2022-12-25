@@ -1,13 +1,10 @@
 {
-  "name": "angular-electron",
-  "description": "Angular Electron sample",
-  "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
-  },
-  "version": "11.2.0",
+  "name": "studydev-course-editor",
+  "description": "StudyDev Course Editor",
+  "version": "1.0.0",
   "main": "main.js",
   "private": true,
   "dependencies": {
+    "@electron/remote": "2.0.9"
   }
 }
