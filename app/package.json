@@ -1,7 +1,7 @@
 {
   "name": "studydev-course-editor",
   "description": "StudyDev Course Editor",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "main.js",
   "private": true,
   "dependencies": {

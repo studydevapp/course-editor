@@ -3,6 +3,7 @@
   "directories": {
     "output": "release/"
   },
+
   "files": [
     "**/*",
     "!**/*.ts",
