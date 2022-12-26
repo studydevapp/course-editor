@@ -1,9 +1,9 @@
 import {Component, Input, NgZone, OnInit} from '@angular/core';
-import {ProjectDto} from "../../../dto/Project.dto";
-import {ElectronService} from "../../../core/services";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {CourseService} from "../../../services/course.service";
-import {MiscService} from "../../../services/misc.service";
+import {ProjectDto} from '../../../dto/Project.dto';
+import {ElectronService} from '../../../core/services';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {CourseService} from '../../../services/course.service';
+import {MiscService} from '../../../services/misc.service';
 
 @Component({
   selector: 'app-project-overview',

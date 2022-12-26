@@ -14,7 +14,8 @@ export interface CourseMetadataDto {
   reward: number;
   difficulty: number;
   plan: string; // internal name of this plan
-  request_features: ('db_postgres')[];
+  // db_postgres
+  request_features: string[];
   text: {
     en: CourseMetadataText;
     de: CourseMetadataText;

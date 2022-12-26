@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import {CourseService} from '../../services/course.service';
 import {HttpClient} from '@angular/common/http';
-import {ProjectDto} from "../../dto/Project.dto";
-import {ElectronService} from "../../core/services";
+import {ProjectDto} from '../../dto/Project.dto';
+import {ElectronService} from '../../core/services';
 
-const semver = require('semver')
+const semver = require('semver');
 
 @Component({
   selector: 'app-overview',
@@ -39,10 +39,7 @@ export class OverviewComponent implements OnInit {
     cmd.on('exit', () => {
       this.courseService.updateProjects();
       project['_sdk_update'] = false;
-      // run in angular zone
-      this.ngZone.run(() => {
-        this.changeDetectorRef.detectChanges();
-      });
+      this.ngZone.run(() => this.changeDetectorRef.detectChanges());
     });
     cmd.stdout.on('data', (data) => {
       console.log(data);

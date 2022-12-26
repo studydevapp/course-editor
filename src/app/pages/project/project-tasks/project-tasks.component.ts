@@ -2,11 +2,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProjectDto} from '../../../dto/Project.dto';
 import {ElectronService} from '../../../core/services';
 import {CourseService} from '../../../services/course.service';
-import {MatDialog} from "@angular/material/dialog";
-import {ConfirmDialogComponent} from "../../../dialog/confirm-dialog/confirm-dialog.component";
-import {filter} from "rxjs";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {TaskTypes} from "./TaskTypes";
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmDialogComponent} from '../../../dialog/confirm-dialog/confirm-dialog.component';
+import {filter} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {TaskTypes} from './TaskTypes';
 
 @Component({
   selector: 'app-project-tasks',

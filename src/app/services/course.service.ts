@@ -7,8 +7,8 @@ import {CourseMetadataDto} from '../dto/CourseMetadata.dto';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {BehaviorSubject, filter} from 'rxjs';
 import {ProjectDto, ProjectTaskDto} from '../dto/Project.dto';
-import {TaskType, TaskTypes} from "../pages/project/project-tasks/TaskTypes";
-import {APP_CONFIG} from "../../environments/environment";
+import {TaskType, TaskTypes} from '../pages/project/project-tasks/TaskTypes';
+import {APP_CONFIG} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -62,7 +62,7 @@ export class CourseService {
         return this.snackService.open('Course folder already exists', 'OK', {duration: 3000, panelClass: 'error'});
       }
       this.snackService.open('Downloading boilerplate course...', undefined, {duration: 10_000});
-      const e = this.electronService.childProcess.exec(`git clone https://github.com/studydevapp/boilerplate-course ${this.workspace}/${res.metadata.slug} && cd ${this.workspace}/${res.metadata.slug} && npm i`)
+      const e = this.electronService.childProcess.exec(`git clone https://github.com/studydevapp/boilerplate-course ${this.workspace}/${res.metadata.slug} && cd ${this.workspace}/${res.metadata.slug} && npm i`);
       e.on('exit', (code) => {
         if (code === 0) {
           this.ngZone.run(() => {

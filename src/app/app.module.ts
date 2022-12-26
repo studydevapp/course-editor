@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {CoreModule} from './core/core.module';
 
@@ -83,7 +83,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatBadgeModule
+    MatBadgeModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

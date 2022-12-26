@@ -7,10 +7,12 @@ import {MatDialog} from '@angular/material/dialog';
 import {ProjectDto} from '../../dto/Project.dto';
 import {CourseSettingsComponent} from '../../dialog/course-settings/course-settings.component';
 import {ComponentCanDeactivate} from '../../common/guards/pending-changes.guard';
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {TaskType, TaskTypes} from "./project-tasks/TaskTypes";
-import {ElectronService} from "../../core/services";
-import {CourseExecutionDialogComponent} from "../../dialog/course-execution-dialog/course-execution-dialog.component";
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {TaskType, TaskTypes} from './project-tasks/TaskTypes';
+import {ElectronService} from '../../core/services';
+import {CourseExecutionDialogComponent} from '../../dialog/course-execution-dialog/course-execution-dialog.component';
+import {MiscService} from '../../services/misc.service';
+import {APP_CONFIG} from '../../../environments/environment';
 
 @Component({
   selector: 'app-project',
@@ -37,19 +39,19 @@ export class ProjectComponent implements OnInit, OnDestroy, ComponentCanDeactiva
               private courseService: CourseService,
               private snackService: MatSnackBar,
               private electronService: ElectronService,
+              public miscService: MiscService,
               private dialog: MatDialog) {
   }
 
   @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
-    //return !this.hasChanged();
-    return true; // TODO: remove after release
+    return APP_CONFIG.production ? !this.hasChanged() : true;
   }
 
   ngOnInit() {
     this.subs.add(this.activatedRoute.params.pipe(
         map(d => d.slug),
-        map(slug => this.courseService.$projects.value.find(p => p.metadata.slug === slug)),
+        map(slug => this.courseService.$projects.value.find(p => p.metadata.slug === slug))
       ).subscribe(p => {
         this.project = JSON.parse(JSON.stringify(p));
         this.courseService.loadProjectInfo(this.project);
@@ -88,6 +90,13 @@ export class ProjectComponent implements OnInit, OnDestroy, ComponentCanDeactiva
   }
 
   async saveDeployStart() {
+    if (!this.miscService.settings.studydev_auth_token) {
+      this.snackService.open('Please enter your StudyDev Auth Token in the settings first!', undefined, {
+        duration: 2000,
+        panelClass: 'error'
+      });
+      return;
+    }
     try {
       this.loading = true;
       this.save();

@@ -27,7 +27,8 @@
     "e2e": "npm run build:prod && playwright test -c e2e/playwright.config.ts e2e/",
     "e2e:show-trace": "playwright show-trace e2e/tracing/trace.zip",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "publish": "tsx publish.ts"
   },
   "dependencies": {
     "@angular/animations": "14.2.6",
@@ -91,6 +92,7 @@
     "npm-run-all": "4.1.5",
     "playwright": "1.27.1",
     "ts-node": "10.9.1",
+    "tsx": "3.12.1",
     "typescript": "4.8.4",
     "wait-on": "6.0.1",
     "webdriver-manager": "12.1.8"

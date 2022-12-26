@@ -1,27 +1,31 @@
-<div class="wrapper" fxLayout="row wrap" fxLayoutGap="20px 20px grid">
+<div class="wrapper" fxLayout="row wrap" fxLayoutGap="20px 20px grid" [formGroup]="fg">
 
   <mat-form-field fxFlex="100">
     <mat-label>Key</mat-label>
-    <input matInput [(ngModel)]="project.key" [type]="hideKey ? 'password' : 'text'">
+    <input matInput formControlName="key" [type]="hideKey ? 'password' : 'text'">
     <mat-icon matSuffix (click)="hideKey = !hideKey">{{hideKey ? 'visibility_off' : 'visibility'}}</mat-icon>
+    <mat-hint *ngIf="!fg.value.key">Generate at https://study.dev/dashboard/admin/courses</mat-hint>
   </mat-form-field>
 
   <mat-form-field fxFlex="50">
     <mat-label>Slug</mat-label>
-    <input matInput [(ngModel)]="project.metadata.slug">
-    <mat-hint *ngIf="project.metadata.slug">https://study.dev/courses/{{project?.metadata.slug}}</mat-hint>
+    <input matInput formControlName="slug" [maxLength]="30">
+    <mat-hint align="end" *ngIf="fg.value.slug && !fg.get('slug').errors">
+      https://study.dev/courses/{{fg.value.slug}}</mat-hint>
+    <mat-hint align="start" *ngIf="fg.get('slug').errors && fg.get('slug').dirty"
+              style="color:#ff5959">{{fg.get('slug').errors | json}}</mat-hint>
   </mat-form-field>
 
   <mat-form-field fxFlex="50">
     <mat-label>Topic</mat-label>
-    <mat-select [(ngModel)]="project.metadata.topic">
+    <mat-select formControlName="topic">
       <mat-option *ngFor="let topic of $topics | async" [value]="topic.internal_name">{{topic.title}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field fxFlex="50">
     <mat-label>Difficulty</mat-label>
-    <mat-select [(ngModel)]="project.metadata.difficulty">
+    <mat-select formControlName="difficulty">
       <mat-option [value]="0">Easy</mat-option>
       <mat-option [value]="1">Medium</mat-option>
       <mat-option [value]="2">Hard</mat-option>
@@ -30,24 +34,24 @@
 
   <mat-form-field fxFlex="50">
     <mat-label>Reward</mat-label>
-    <input matInput [(ngModel)]="project.metadata.reward">
+    <input matInput formControlName="reward">
     <mat-hint>Points for completed courses</mat-hint>
   </mat-form-field>
 
   <div fxFlex="50" fxLayout="column">
-    <mat-checkbox [(ngModel)]="project.metadata.active">Active</mat-checkbox>
-    <mat-checkbox [(ngModel)]="project.metadata.is_challenge">Challenge</mat-checkbox>
+    <mat-checkbox formControlName="active">Active</mat-checkbox>
+    <mat-checkbox formControlName="is_challenge">Challenge</mat-checkbox>
   </div>
 
   <mat-form-field fxFlex="50">
     <mat-label>Features</mat-label>
-    <mat-select [multiple]="true" [(ngModel)]="project.metadata.request_features">
+    <mat-select [multiple]="true" formControlName="request_features">
       <mat-option [value]="'db_postgres'">Postgres (Database)</mat-option>
     </mat-select>
   </mat-form-field>
 
   <div fxFlex="100" fxLayout="row" fxLayoutAlign="flex-end flex-start">
-    <button mat-flat-button color="primary"
+    <button mat-flat-button color="primary" [disabled]="!fg.valid"
             (click)="save()">{{this.data?.project?.metadata ? 'Close' : 'Create course'}}</button>
   </div>
 </div>

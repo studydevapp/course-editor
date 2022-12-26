@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {ProjectDto} from "../../dto/Project.dto";
-import {APP_CONFIG} from "../../../environments/environment";
-import {MiscService} from "../../services/misc.service";
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {ProjectDto} from '../../dto/Project.dto';
+import {APP_CONFIG} from '../../../environments/environment';
+import {MiscService} from '../../services/misc.service';
 
 @Component({
   selector: 'app-course-execution-dialog',

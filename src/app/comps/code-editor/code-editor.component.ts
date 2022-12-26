@@ -10,8 +10,8 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {CodeEditorService} from "./code-editor.service";
-import {editor} from "monaco-editor";
+import {CodeEditorService} from './code-editor.service';
+import {editor} from 'monaco-editor';
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
 @Component({
@@ -49,8 +49,8 @@ export class CodeEditorComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['content'] && this.codeEditor && this.codeEditor.getValue() !== changes['content'].currentValue) {
-      this.codeEditor.setValue(changes['content'].currentValue);
+    if (changes.content && this.codeEditor && this.codeEditor.getValue() !== changes.content.currentValue) {
+      this.codeEditor.setValue(changes.content.currentValue);
     }
   }
 

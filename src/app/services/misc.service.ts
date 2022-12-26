@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs";
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,7 @@ export class MiscService {
   translate(targetLang: string, text: string[]) {
     return this.http.post<any>(`https://api-free.deepl.com/v2/translate`, {
       target_lang: targetLang,
-      text: text,
+      text,
       ignore_tags: ['pre', 'mark'],
       tag_handling: 'xml'
     }, {

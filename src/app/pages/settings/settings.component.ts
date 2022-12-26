@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MiscService} from "../../services/misc.service";
+import {MiscService} from '../../services/misc.service';
 
 @Component({
   selector: 'app-settings',

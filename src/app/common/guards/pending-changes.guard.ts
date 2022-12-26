@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {CanDeactivate} from '@angular/router';
 import {Observable} from 'rxjs';
-import {MatDialog} from "@angular/material/dialog";
-import {ConfirmDialogComponent} from "../../dialog/confirm-dialog/confirm-dialog.component";
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmDialogComponent} from '../../dialog/confirm-dialog/confirm-dialog.component';
 
 export interface ComponentCanDeactivate {
   canDeactivate: () => boolean | Observable<boolean>;

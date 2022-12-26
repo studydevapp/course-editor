@@ -1,7 +1,7 @@
 import {app, autoUpdater, BrowserWindow, dialog, ipcMain, screen} from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
-import {enable, initialize} from "@electron/remote/main";
+import {enable, initialize} from '@electron/remote/main';
 
 initialize();
 
@@ -25,8 +25,8 @@ function createWindow(): BrowserWindow {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve),
       webSecurity: false,
-      contextIsolation: false,  // false if you want to run e2e test with Spectron
-    },
+      contextIsolation: false  // false if you want to run e2e test with Spectron
+    }
   });
 
   enable(win.webContents)
@@ -92,6 +92,11 @@ try {
   const updateServer = 'studydev-course-editor.vercel.app';
   const url = `${updateServer}/update/${process.platform}/${app.getVersion()}`;
   autoUpdater.setFeedURL({url});
+
+  autoUpdater.on('update-downloaded', (ev, info) => {
+    autoUpdater.quitAndInstall();
+  })
+  autoUpdater.checkForUpdates()
 
 } catch (e) {
   // Catch Error
